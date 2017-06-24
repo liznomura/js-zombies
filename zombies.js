@@ -134,7 +134,7 @@ let poroSnax = new Food("Poro Snax", 10);
  * @name checkPack
  */
 
-checkPack() {
+ checkPack() {
   console.log(this.getPack);
 }
 
@@ -193,8 +193,15 @@ checkPack() {
  * @return {boolean} true/false     Whether player was able to remove item from pack.
  */
 
-
-}
+ discardItem(item) {
+    if(this._pack.indexOf(item) !== -1) {
+      this._pack.splice(this._pack.indexOf(item), 1);
+      console.log(this.name, item.name, "Item successfully discarded!");
+      return true;
+    }
+    console.log("You can't throw away what you don't have, dummy!");
+    return false;
+  }
 
 /**
  * Player Class Method => equip(itemToEquip)
@@ -215,6 +222,24 @@ checkPack() {
  * @name equip
  * @param {Weapon} itemToEquip  The weapon item to equip.
  */
+
+ equip(itemToEquip) {
+  if (!(itemToEquip instanceof Weapon) || this._pack.indexOf(itemToEquip) === -1) {
+    console.log("You can only equip weapons you own!");
+    return false;
+  } else if(this.equipped !== false && this._pack.indexOf(itemToEquip) > -1) {
+    this._pack.splice(this._pack.indexOf(itemToEquip), 1, this.equipped);
+    this.equipped = itemToEquip;
+    console.log(this.equipped);
+    return true;
+  } else if (this.equipped === false) {
+    this.equipped = itemToEquip;
+    this._pack.splice(this._pack.indexOf(itemToEquip), 1);
+    console.log(this._pack);
+    return true;
+  }
+ }
+}
 
 
 /**
