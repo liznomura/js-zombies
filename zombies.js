@@ -194,14 +194,14 @@ let poroSnax = new Food("Poro Snax", 10);
  */
 
  discardItem(item) {
-    if(this._pack.indexOf(item) !== -1) {
-      this._pack.splice(this._pack.indexOf(item), 1);
-      console.log(this.name, item.name, "Item successfully discarded!");
-      return true;
-    }
-    console.log("You can't throw away what you don't have, dummy!");
-    return false;
+  if(this._pack.indexOf(item) !== -1) {
+    this._pack.splice(this._pack.indexOf(item), 1);
+    console.log(this.name, item.name, "Item successfully discarded!");
+    return true;
   }
+  console.log("You can't throw away what you don't have, dummy!");
+  return false;
+}
 
 /**
  * Player Class Method => equip(itemToEquip)
@@ -238,7 +238,6 @@ let poroSnax = new Food("Poro Snax", 10);
     console.log(this._pack);
     return true;
   }
- }
 }
 
 
@@ -261,6 +260,23 @@ let poroSnax = new Food("Poro Snax", 10);
  * @param {Food} itemToEat  The food item to eat.
  */
 
+eat(itemToEat) {
+  if (!(itemToEat instanceof Food) || this._pack.indexOf(itemToEat) === -1) {
+    console.log("You can only eat food you own!");
+    return false;
+  } else if (itemToEat.energy < this._maxHealth - this.health) {
+    this.health += itemToEat.energy;
+    this._pack.splice(this._pack.indexOf(itemToEat), 1);
+    console.log("Yummy! Your health has been restored to " + this.health + "!");
+    return true;
+  } else if (itemToEat.energy >= this._maxHealth - this.health) {
+    this.health = this._maxHealth;
+    this._pack.splice(this._pack.indexOf(itemToEat), 1);
+    console.log("Yummy! Your health has been fully restored!");
+    return true;
+  }
+}
+}
 
 /**
  * Player Class Method => useItem(item)
@@ -274,6 +290,7 @@ let poroSnax = new Food("Poro Snax", 10);
  * @name useItem
  * @param {Item/Weapon/Food} item   The item to use.
  */
+
 
 
 /**
