@@ -108,14 +108,15 @@ let poroSnax = new Food("Poro Snax", 10);
     this.health = health;
     this.strength = strength;
     this.speed = speed;
+    this._pack = [];
     this.isAlive = true;
     this.equipped = false;
   }
 
   getPack() {
-    this._pack = [];
     return this._pack;
   }
+
   getMaxHealth() {
     this._maxHealth = this.health;
     return this._maxHealth;
@@ -152,13 +153,12 @@ let poroSnax = new Food("Poro Snax", 10);
  * @return {boolean} true/false     Whether player was able to store item in pack.
  */
 
- takeItem() {
-  if(this.getPack().length > 3) {
+ takeItem(item) {
+  if(this._pack.length >= 3) {
     console.log("Your pack is too full! Could not take item :(");
     return false;
   } else {
-    let itemPack = this.getPack();
-    itemPack.push(item);
+    this._pack.push(item);
     console.log("Item stored in pack!");
     return true;
   }
