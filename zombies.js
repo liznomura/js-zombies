@@ -32,22 +32,20 @@ let deathsDance = new Item("Death's Dance");
  * @property {number} damage
  */
 
-class Weapon extends Item {
-  constructor(name, damage) {
-    super();
-    this.name = name;
-    this.damage = damage;
-  }
-}
-
-Weapon.deathsDance = ("Death's Dance", 100);
-
 
 /**
  * Weapon Extends Item Class
  * -----------------------------
  */
 
+class Weapon extends Item {
+  constructor(name, damage) {
+    super(name);
+    this.damage = damage;
+  }
+}
+
+Weapon.deathsDance = ("Death's Dance", 100);
 
 
 /**
@@ -72,6 +70,14 @@ Weapon.deathsDance = ("Death's Dance", 100);
  * -----------------------------
  */
 
+class Food extends Item {
+  constructor(name, energy) {
+    super(name);
+    this.energy = energy;
+  }
+}
+
+let poroSnax = new Food("Poro Snax", 10);
 
 
 /**
