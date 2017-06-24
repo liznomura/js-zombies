@@ -364,18 +364,16 @@ let poroSnax = new Food("Poro Snax", 10);
  * @param {number} speed            The zombie's speed.
  */
 
-class FastZombie extends Zombie {
-  constructor(health, strength, speed) {
-    super(health, strength, speed);
-  }
-}
-
 /**
  * FastZombie Extends Zombie Class
  * -----------------------------
  */
 
-
+class FastZombie extends Zombie {
+  constructor(health, strength, speed) {
+    super(health, strength, speed);
+  }
+}
 
 /**
  * Class => StrongZombie(health, strength, speed)
@@ -392,13 +390,16 @@ class FastZombie extends Zombie {
  * @param {number} speed            The zombie's speed.
  */
 
-
 /**
  * StrongZombie Extends Zombie Class
  * -----------------------------
  */
 
-
+class StrongZombie extends Zombie {
+  constructor(health, strength, speed) {
+    super(health, strength, speed);
+  }
+}
 
 /**
  * Class => RangedZombie(health, strength, speed)
@@ -421,7 +422,11 @@ class FastZombie extends Zombie {
  * -----------------------------
  */
 
-
+class RangedZombie extends Zombie {
+  constructor(health, strength, speed) {
+    super(health, strength, speed);
+  }
+}
 
 /**
  * Class => ExplodingZombie(health, strength, speed)
@@ -444,7 +449,11 @@ class FastZombie extends Zombie {
  * -----------------------------
  */
 
-
+class ExplodingZombie extends Zombie {
+  constructor(health, strength, speed) {
+    super(health, strength, speed);
+  }
+}
 
 
 /**
