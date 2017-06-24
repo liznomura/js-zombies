@@ -296,7 +296,7 @@ let poroSnax = new Food("Poro Snax", 10);
     this.eat(item);
   }
 }
-}
+
 /**
  * Player Class Method => equippedWith()
  * -----------------------------
@@ -311,6 +311,16 @@ let poroSnax = new Food("Poro Snax", 10);
  * @return {string/boolean}   Weapon name or false if nothing is equipped.
  */
 
+equippedWith() {
+  if(this.equipped === false) {
+    console.log("You have nothing equipped :(");
+    return false;
+  } else {
+    console.log(this.name + " has " + this.equipped.name + " equipped");
+    return this.equipped.name;
+  }
+}
+}
 
 /**
  * Class => Zombie(health, strength, speed)
