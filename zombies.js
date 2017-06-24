@@ -111,6 +111,7 @@ let poroSnax = new Food("Poro Snax", 10);
     this._pack = [];
     this.isAlive = true;
     this.equipped = false;
+    this._maxHealth = health;
   }
 
   getPack() {
@@ -118,7 +119,6 @@ let poroSnax = new Food("Poro Snax", 10);
   }
 
   getMaxHealth() {
-    this._maxHealth = this.health;
     return this._maxHealth;
   }
 
@@ -235,7 +235,6 @@ let poroSnax = new Food("Poro Snax", 10);
   } else if (this.equipped === false) {
     this.equipped = itemToEquip;
     this._pack.splice(this._pack.indexOf(itemToEquip), 1);
-    console.log(this._pack);
     return true;
   }
 }
@@ -260,22 +259,21 @@ let poroSnax = new Food("Poro Snax", 10);
  * @param {Food} itemToEat  The food item to eat.
  */
 
-eat(itemToEat) {
+ eat(itemToEat) {
   if (!(itemToEat instanceof Food) || this._pack.indexOf(itemToEat) === -1) {
     console.log("You can only eat food you own!");
     return false;
-  } else if (itemToEat.energy < this._maxHealth - this.health) {
+  } else if (itemToEat.energy + this.health < this._maxHealth) {
     this.health += itemToEat.energy;
     this._pack.splice(this._pack.indexOf(itemToEat), 1);
     console.log("Yummy! Your health has been restored to " + this.health + "!");
     return true;
-  } else if (itemToEat.energy >= this._maxHealth - this.health) {
+  } else if (itemToEat.energy + this.health >= this._maxHealth) {
     this.health = this._maxHealth;
     this._pack.splice(this._pack.indexOf(itemToEat), 1);
     console.log("Yummy! Your health has been fully restored!");
     return true;
   }
-}
 }
 
 /**
@@ -291,8 +289,14 @@ eat(itemToEat) {
  * @param {Item/Weapon/Food} item   The item to use.
  */
 
-
-
+ useItem(item) {
+  if(item instanceof Weapon) {
+    this.equip(item);
+  } else if (item instanceof Food) {
+    this.eat(item);
+  }
+}
+}
 /**
  * Player Class Method => equippedWith()
  * -----------------------------
