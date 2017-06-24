@@ -134,6 +134,9 @@ let poroSnax = new Food("Poro Snax", 10);
  * @name checkPack
  */
 
+checkPack() {
+  console.log(this.getPack);
+}
 
 /**
  * Player Class Method => takeItem(item)
@@ -163,7 +166,7 @@ let poroSnax = new Food("Poro Snax", 10);
     return true;
   }
 }
-}
+
 /**
  * Player Class Method => discardItem(item)
  * -----------------------------
@@ -190,6 +193,8 @@ let poroSnax = new Food("Poro Snax", 10);
  * @return {boolean} true/false     Whether player was able to remove item from pack.
  */
 
+
+}
 
 /**
  * Player Class Method => equip(itemToEquip)
