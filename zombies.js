@@ -14,7 +14,7 @@
   }
 }
 
-let deathsDance = new Item("Death's Dance");
+let redemption = new Item("Redemption");
 
 /**
  * Class => Weapon(name, damage)
@@ -45,7 +45,7 @@ let deathsDance = new Item("Death's Dance");
   }
 }
 
-Weapon.deathsDance = ("Death's Dance", 100);
+Weapon.redemption = ("Redemption", 100);
 
 
 /**
@@ -311,7 +311,7 @@ let poroSnax = new Food("Poro Snax", 10);
  * @return {string/boolean}   Weapon name or false if nothing is equipped.
  */
 
-equippedWith() {
+ equippedWith() {
   if(this.equipped === false) {
     console.log("You have nothing equipped :(");
     return false;
@@ -338,6 +338,16 @@ equippedWith() {
  * @property {boolean} isAlive      Default value should be `true`.
  */
 
+ class Zombie {
+  constructor(health, strength, speed) {
+    this.name = 'Zombie';
+    this.health = health;
+    this.strength = strength;
+    this.speed = speed;
+    this.isAlive = true;
+    this._maxHealth = health;
+  }
+}
 
 /**
  * Class => FastZombie(health, strength, speed)
