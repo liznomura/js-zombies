@@ -8,7 +8,7 @@
  * @property {string} name
  */
 
-function Item(name) {
+ function Item(name) {
   this.name = name;
 }
 
@@ -34,7 +34,7 @@ function Item(name) {
  * -----------------------------
  */
 
-function Weapon(name, damage) {
+ function Weapon(name, damage) {
   Item.call(this, name);
   this.damage = damage;
 }
@@ -65,7 +65,7 @@ Weapon.prototype = Object.create(Item.prototype);
  * -----------------------------
  */
 
-function Food(name, energy) {
+ function Food(name, energy) {
   Item.call(this, name);
   this.energy = energy;
 }
@@ -95,6 +95,24 @@ Food.prototype = Object.create(Item.prototype);
  * @property {method} getMaxHealth         Returns private variable `maxHealth`.
  */
 
+ function Player(name, health, strength, speed) {
+  this.name = name;
+  this.health = health;
+  this.strength = strength;
+  this.speed = speed;
+  this.isAlive = true;
+  this.equipped = false;
+}
+
+Player.prototype.getPack = function() {
+  this.pack = [];
+  return this.pack;
+};
+
+Player.prototype.getMaxHealth = function () {
+  this.maxHealth = this.health;
+  return this.maxHealth;
+};
 
 
 /**
