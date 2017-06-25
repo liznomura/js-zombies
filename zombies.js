@@ -370,6 +370,11 @@ Player.prototype.takeItem = function(item) {
  */
 
 
+ function FastZombie(health, strength, speed) {
+  Zombie.call(this, health, strength, speed);
+}
+
+FastZombie.prototype= Object.create(Zombie.prototype);
 
 /**
  * Class => StrongZombie(health, strength, speed)
@@ -391,7 +396,11 @@ Player.prototype.takeItem = function(item) {
  * -----------------------------
  */
 
+ function StrongZombie(health, strength, speed) {
+  Zombie.call(this, health, strength, speed);
+}
 
+StrongZombie.prototype= Object.create(Zombie.prototype);
 
 /**
  * Class => RangedZombie(health, strength, speed)
@@ -414,7 +423,11 @@ Player.prototype.takeItem = function(item) {
  * -----------------------------
  */
 
+ function RangedZombie(health, strength, speed) {
+  Zombie.call(this, health, strength, speed);
+}
 
+RangedZombie.prototype= Object.create(Zombie.prototype);
 
 /**
  * Class => ExplodingZombie(health, strength, speed)
@@ -437,7 +450,11 @@ Player.prototype.takeItem = function(item) {
  * -----------------------------
  */
 
+ function ExplodingZombie(health, strength, speed) {
+  Zombie.call(this, health, strength, speed);
+}
 
+ExplodingZombie.prototype= Object.create(Zombie.prototype);
 
 /**
  * Sample run.
