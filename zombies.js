@@ -338,7 +338,16 @@ Player.prototype.takeItem = function(item) {
  * @property {boolean} isAlive      Default value should be `true`.
  */
 
-
+ function Zombie(health, strength, speed) {
+  this.health = health;
+  this.strength = strength;
+  this.speed = speed;
+  this.isAlive = true;
+  var maxHealth = health;
+  this.getMaxHealth = function() {
+    return maxHealth;
+  };
+}
 
 /**
  * Class => FastZombie(health, strength, speed)
