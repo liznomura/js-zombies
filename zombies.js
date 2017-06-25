@@ -102,17 +102,23 @@ Food.prototype = Object.create(Item.prototype);
   this.speed = speed;
   this.isAlive = true;
   this.equipped = false;
-  this._pack = [];
-  this._maxHealth = health;
+  var pack = [];
+  this.getPack = function() {
+    return pack;
+  };
+  var maxHealth = health;
+  this.getMaxHealth = function() {
+    return maxHealth;
+  };
 }
 
-Player.prototype.getPack = function() {
-  return this._pack;
-};
+// function getPack() {
+//   return pack;
+// }
 
-Player.prototype.getMaxHealth = function() {
-  return this._maxHealth;
-};
+// function getMaxHealth() {
+//   return maxHealth;
+// }
 
 
 /**
@@ -150,11 +156,11 @@ Player.prototype.checkPack = function() {
  */
 
 Player.prototype.takeItem = function(item) {
-  if(this._pack.length >= 3) {
+  if(this.getPack().length >= 3) {
     console.log( "Your pack is too full! Could not take item :(");
     return false;
   } else {
-    this._pack.push(item);
+    this.getPack().push(item);
     console.log( item.name + " stored in pack!" );
     return true;
   }
@@ -187,8 +193,8 @@ Player.prototype.takeItem = function(item) {
  */
 
  Player.prototype.discardItem = function(item) {
-  if(this._pack.indexOf(item) !== -1) {
-    this._pack.splice(this._pack.indexOf(item), 1);
+  if(this.getPack().indexOf(item) !== -1) {
+    this.getPack().splice(this.getPack().indexOf(item), 1);
     console.log(this.name, item.name, "Item successfully discarded!");
     return true;
   }
@@ -217,17 +223,17 @@ Player.prototype.takeItem = function(item) {
  */
 
  Player.prototype.equip = function(itemToEquip) {
-  if (!(itemToEquip instanceof Weapon) || this._pack.indexOf(itemToEquip) === -1) {
+  if (!(itemToEquip instanceof Weapon) || this.getPack().indexOf(itemToEquip) === -1) {
     console.log("You can only equip weapons you own!");
     return false;
-  } else if(this.equipped !== false && this._pack.indexOf(itemToEquip) > -1) {
-    this._pack.splice(this._pack.indexOf(itemToEquip), 1, this.equipped);
+  } else if(this.equipped !== false && this.getPack().indexOf(itemToEquip) > -1) {
+    this.getPack().splice(this.getPack().indexOf(itemToEquip), 1, this.equipped);
     this.equipped = itemToEquip;
     console.log(this.equipped);
     return true;
   } else if (this.equipped === false) {
     this.equipped = itemToEquip;
-    this._pack.splice(this._pack.indexOf(itemToEquip), 1);
+    this.getPack().splice(this.getPack().indexOf(itemToEquip), 1);
     return true;
   }
 };
@@ -253,17 +259,17 @@ Player.prototype.takeItem = function(item) {
  */
 
  Player.prototype.eat = function(itemToEat) {
-  if (!(itemToEat instanceof Food) || this._pack.indexOf(itemToEat) === -1) {
+  if (!(itemToEat instanceof Food) || this.getPack().indexOf(itemToEat) === -1) {
     console.log("You can only eat food you own!");
     return false;
-  } else if (itemToEat.energy + this.health < this._maxHealth) {
+  } else if (itemToEat.energy + this.health < this.getMaxHealth()) {
     this.health += itemToEat.energy;
-    this._pack.splice(this._pack.indexOf(itemToEat), 1);
+    this.getPack().splice(this.getPack().indexOf(itemToEat), 1);
     console.log("Yummy! Your health has been restored to " + this.health + "!");
     return true;
-  } else if (itemToEat.energy + this.health >= this._maxHealth) {
-    this.health = this._maxHealth;
-    this._pack.splice(this._pack.indexOf(itemToEat), 1);
+  } else if (itemToEat.energy + this.health >= this.getMaxHealth()) {
+    this.health = this.getMaxHealth();
+    this.getPack().splice(this.getPack().indexOf(itemToEat), 1);
     console.log("Yummy! Your health has been fully restored!");
     return true;
   }
