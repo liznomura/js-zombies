@@ -102,16 +102,16 @@ Food.prototype = Object.create(Item.prototype);
   this.speed = speed;
   this.isAlive = true;
   this.equipped = false;
+  this._pack = [];
+  this._maxHealth = health;
 }
 
 Player.prototype.getPack = function() {
-  this.pack = [];
-  return this.pack;
+  return this._pack;
 };
 
-Player.prototype.getMaxHealth = function () {
-  this.maxHealth = this.health;
-  return this.maxHealth;
+Player.prototype.getMaxHealth = function() {
+  return this._maxHealth;
 };
 
 
@@ -127,6 +127,9 @@ Player.prototype.getMaxHealth = function () {
  * @name checkPack
  */
 
+Player.prototype.checkPack = function() {
+  console.log( this.getPack );
+};
 
 /**
  * Player Class Method => takeItem(item)
@@ -146,6 +149,16 @@ Player.prototype.getMaxHealth = function () {
  * @return {boolean} true/false     Whether player was able to store item in pack.
  */
 
+Player.prototype.takeItem = function(item) {
+  if(this._pack.length >= 3) {
+    console.log( "Your pack is too full! Could not take item :(");
+    return false;
+  } else {
+    this._pack.push(item);
+    console.log( item.name + " stored in pack!" );
+    return true;
+  }
+};
 
 /**
  * Player Class Method => discardItem(item)
@@ -173,7 +186,15 @@ Player.prototype.getMaxHealth = function () {
  * @return {boolean} true/false     Whether player was able to remove item from pack.
  */
 
-
+ Player.prototype.discardItem = function(item) {
+  if(this._pack.indexOf(item) !== -1) {
+    this._pack.splice(this._pack.indexOf(item), 1);
+    console.log(this.name, item.name, "Item successfully discarded!");
+    return true;
+  }
+  console.log("You can't throw away what you don't have, dummy!");
+  return false;
+};
 
 /**
  * Player Class Method => equip(itemToEquip)
@@ -195,7 +216,21 @@ Player.prototype.getMaxHealth = function () {
  * @param {Weapon} itemToEquip  The weapon item to equip.
  */
 
-
+ Player.prototype.equip = function(itemToEquip) {
+  if (!(itemToEquip instanceof Weapon) || this._pack.indexOf(itemToEquip) === -1) {
+    console.log("You can only equip weapons you own!");
+    return false;
+  } else if(this.equipped !== false && this._pack.indexOf(itemToEquip) > -1) {
+    this._pack.splice(this._pack.indexOf(itemToEquip), 1, this.equipped);
+    this.equipped = itemToEquip;
+    console.log(this.equipped);
+    return true;
+  } else if (this.equipped === false) {
+    this.equipped = itemToEquip;
+    this._pack.splice(this._pack.indexOf(itemToEquip), 1);
+    return true;
+  }
+};
 
 
 /**
@@ -217,7 +252,22 @@ Player.prototype.getMaxHealth = function () {
  * @param {Food} itemToEat  The food item to eat.
  */
 
-
+ Player.prototype.eat = function(itemToEat) {
+  if (!(itemToEat instanceof Food) || this._pack.indexOf(itemToEat) === -1) {
+    console.log("You can only eat food you own!");
+    return false;
+  } else if (itemToEat.energy + this.health < this._maxHealth) {
+    this.health += itemToEat.energy;
+    this._pack.splice(this._pack.indexOf(itemToEat), 1);
+    console.log("Yummy! Your health has been restored to " + this.health + "!");
+    return true;
+  } else if (itemToEat.energy + this.health >= this._maxHealth) {
+    this.health = this._maxHealth;
+    this._pack.splice(this._pack.indexOf(itemToEat), 1);
+    console.log("Yummy! Your health has been fully restored!");
+    return true;
+  }
+};
 
 /**
  * Player Class Method => useItem(item)
